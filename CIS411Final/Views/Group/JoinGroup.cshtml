@@ -1,0 +1,47 @@
+﻿@model CIS411Final.Models.Group
+
+@{
+    ViewBag.Title = "JoinGroup";
+}
+
+<h2>Join Group</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Are you sure you want to join this group?</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.GroupId)
+
+        <ul>
+            <li>@Model.Title</li>
+            <li>@Model.Location</li>
+            <li>@Model.Description</li>
+            <li>@Model.MeetingTime</li>
+        </ul>
+        <ul>
+            @foreach (var student in Model.Students)
+            {
+                <li>@student.UserName</li>
+            }
+        </ul>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Join This Group!" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
